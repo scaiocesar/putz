@@ -38,10 +38,10 @@ public class UserController extends GenericController {
 
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, produces = "application/json;charset=UTF-8", value = "/login")
-	public ResponseEntity<?> create(@RequestParam String email, @RequestParam String pwd, HttpServletRequest request) {
+	@RequestMapping(method = RequestMethod.POST, produces = "application/json;charset=UTF-8", value = "/login")
+	public ResponseEntity<?> login (@RequestBody User user, HttpServletRequest request) {
 		try {
-			User usr = userService.doLogin(email, pwd);
+			User usr = userService.doLogin(user.getEmail(), user.getPassword());
 			return new ResponseEntity<User>(usr,HttpStatus.OK);
 		} catch (ServiceException e) {
 			return new ResponseEntity(getMessageSource().getMessage(e.getMsgResource(), null, null, request.getLocale()), HttpStatus.BAD_REQUEST);
