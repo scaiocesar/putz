@@ -51,7 +51,7 @@ public class UserController extends GenericController {
 		
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, produces = "application/json;charset=UTF-8", value = "/login1")
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json;charset=UTF-8", value = "/login1")
 	public ResponseEntity<?> doLogin1(@RequestBody User user, HttpServletRequest request) throws ServiceException {
 		user.setName("teste");
 		return new ResponseEntity<User>(user,HttpStatus.OK);
