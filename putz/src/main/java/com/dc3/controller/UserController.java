@@ -41,12 +41,20 @@ public class UserController extends GenericController {
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json;charset=UTF-8", value = "/login")
 	public ResponseEntity<?> doLogin(@RequestBody User user, HttpServletRequest request) {
 		try {
-			User usr = userService.doLogin(user.getEmail(), user.getPassword());
-			return new ResponseEntity<User>(usr,HttpStatus.OK);
+			User user2 = userService.doLogin(user.getEmail(), user.getPassword());
+			if (user2!=null)
+				return new ResponseEntity<User>(user2,HttpStatus.OK);
+			else return new ResponseEntity<User>(user2,HttpStatus.UNAUTHORIZED);
 		} catch (ServiceException e) {
 			return new ResponseEntity(getMessageSource().getMessage(e.getMsgResource(), null, null, request.getLocale()), HttpStatus.BAD_REQUEST);
 		}
 		
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, produces = "application/json;charset=UTF-8", value = "/login1")
+	public ResponseEntity<?> doLogin1(@RequestBody User user, HttpServletRequest request) throws ServiceException {
+		user.setName("teste");
+		return new ResponseEntity<User>(user,HttpStatus.OK);
 	}
 	
 
