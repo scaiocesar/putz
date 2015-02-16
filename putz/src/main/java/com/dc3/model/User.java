@@ -16,7 +16,10 @@ public class User {
 	private Integer idUser;
 	private Integer idState;
 	private String phone;
-	private String oauthId;
+	private String name;
+	private String password;
+	private String email;
+	private Boolean active;
 	public Integer getIdUser() {
 		return idUser;
 	}
@@ -35,11 +38,29 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getOauthId() {
-		return oauthId;
+	public String getName() {
+		return name;
 	}
-	public void setOauthId(String oauthId) {
-		this.oauthId = oauthId;
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public Boolean getActive() {
+		return active;
+	}
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 	
 	
