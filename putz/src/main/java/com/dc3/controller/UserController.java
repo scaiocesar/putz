@@ -18,7 +18,7 @@ import com.dc3.service.exception.ServiceException;
 /**
  * Classe responsável por gerenciar as açoes de Cadastro de usuario
  * @author Caio
- *
+ * 
  */
 @Controller
 @RequestMapping(value = "/userController")
