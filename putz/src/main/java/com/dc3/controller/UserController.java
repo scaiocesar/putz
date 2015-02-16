@@ -38,13 +38,8 @@ public class UserController extends GenericController {
 
 	}
 	
-<<<<<<< HEAD
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json;charset=UTF-8", value = "/login")
-	public ResponseEntity<?> login (@RequestBody User user, HttpServletRequest request) {
-=======
-	@RequestMapping(method = RequestMethod.GET, produces = "application/json;charset=UTF-8", value = "/login")
-	public ResponseEntity<?> login(@RequestBody User user, HttpServletRequest request) {
->>>>>>> origin/master
+	public ResponseEntity<?> doLogin(@RequestBody User user, HttpServletRequest request) {
 		try {
 			User usr = userService.doLogin(user.getEmail(), user.getPassword());
 			return new ResponseEntity<User>(usr,HttpStatus.OK);
