@@ -23,7 +23,7 @@ public class LoginController {
 		try {
 			user = userService.doLogin(user);
 		} catch (ServiceException e) {			
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<String>(e.getMsgResource(), HttpStatus.UNAUTHORIZED);
 		}
 		ResponseEntity<User> respEnt = new ResponseEntity<User>(user,HttpStatus.OK);
 		return respEnt;
