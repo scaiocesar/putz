@@ -15,31 +15,31 @@ public class UserService extends GenericService {
 	@Autowired
 	private UserRepository userRepository;
 
-	
 	public void save(User user) throws ServiceException {
 		User usr = userRepository.findTop1ByEmail(user.getEmail());
-		if(usr == null){
+		if (usr == null) {
 			user.setActive(true);
 			userRepository.save(user);
-		}else{
-			throw new ServiceException("Usuario já cadastrado", "error.user.already_exists");
+		} else {
+			throw new ServiceException("Usuario já cadastrado",
+					"error.user.already_exists");
 		}
-	}
-	
-	
-	@Transactional(readOnly = true)
-	public User doLogin(String email, String pwd) throws ServiceException{
-		User usr = userRepository.findTop1ByEmail(email);
-		if(usr == null){
-			throw new ServiceException("Login não cadastrado","error.user.login_notfound");
-		}else{
-			if(!usr.getPassword().equals(pwd)){
-				throw new ServiceException("Senha não confere","error.user.wrong_password");
-			}else{
-				return usr;
-			}
-		}
-		
 	}
 
+	@Transactional(readOnly = true)
+	public User doLogin(User user) throws ServiceException {
+		User foundUser = userRepository.findTop1ByEmail(user.getEmail());
+		if (foundUser == null) {
+			throw new ServiceException("Login não cadastrado",
+					"error.user.login_notfound");
+		} else {
+			if (!foundUser.getPassword().isEmpty() && foundUser.equals(user.getPassword())) {
+				throw new ServiceException("Senha não confere",
+						"error.user.wrong_password");
+			} else {
+				return foundUser;
+			}
+		}
+
+	}
 }

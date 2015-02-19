@@ -10,7 +10,8 @@ public class ServiceException extends Exception {
 	private String msgResource;
 
 	/**
-	 * Seta a mensagem e o propertie  do i18N da msg
+	 * Seta a mensagem e o propertie do i18N da msg
+	 * 
 	 * @param message
 	 * @param msgResource
 	 */

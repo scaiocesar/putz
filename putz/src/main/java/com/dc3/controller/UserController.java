@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dc3.model.User;
 import com.dc3.service.UserService;
@@ -17,6 +16,7 @@ import com.dc3.service.exception.ServiceException;
 
 /**
  * Classe responsável por gerenciar as açoes de Cadastro de usuario
+ * 
  * @author Caio
  * 
  */
@@ -28,34 +28,17 @@ public class UserController extends GenericController {
 	private UserService userService;
 
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json;charset=UTF-8", value = "/create")
-	public ResponseEntity<?> create(@RequestBody User user, HttpServletRequest request) {
+	public ResponseEntity<?> create(@RequestBody User user,
+			HttpServletRequest request) {
 		try {
 			userService.save(user);
-			return new ResponseEntity<String>("OK",HttpStatus.OK);
+			return new ResponseEntity<String>("OK", HttpStatus.OK);
 		} catch (ServiceException e) {
-			return new ResponseEntity(getMessageSource().getMessage(e.getMsgResource(), null, null, request.getLocale()), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity(getMessageSource().getMessage(
+					e.getMsgResource(), null, null, request.getLocale()),
+					HttpStatus.BAD_REQUEST);
 		}
 
 	}
-	
-	@RequestMapping(method = RequestMethod.POST, produces = "application/json;charset=UTF-8", value = "/login")
-	public ResponseEntity<?> doLogin(@RequestBody User user, HttpServletRequest request) {
-		try {
-			User user2 = userService.doLogin(user.getEmail(), user.getPassword());
-			if (user2!=null)
-				return new ResponseEntity<User>(user2,HttpStatus.OK);
-			else return new ResponseEntity<User>(user2,HttpStatus.UNAUTHORIZED);
-		} catch (ServiceException e) {
-			return new ResponseEntity(getMessageSource().getMessage(e.getMsgResource(), null, null, request.getLocale()), HttpStatus.BAD_REQUEST);
-		}
-		
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, produces = "application/json;charset=UTF-8", value = "/login1")
-	public ResponseEntity<?> doLogin1(@RequestBody User user, HttpServletRequest request) throws ServiceException {
-		user.setName("teste");
-		return new ResponseEntity<User>(user,HttpStatus.OK);
-	}
-	
 
 }
