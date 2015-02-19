@@ -27,6 +27,8 @@ public class UserController extends GenericController {
 
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json")
 	public ResponseEntity<?> create(@RequestBody User user) {
+		ResponseEntity<User> respEnt = null;
+		
 		try {
 			userService.save(user);
 		} catch (ServiceException e) {
@@ -34,7 +36,7 @@ public class UserController extends GenericController {
 					e.getMsgResource(), null, null), HttpStatus.BAD_REQUEST);
 		}
 
-		ResponseEntity<User> respEnt = new ResponseEntity<User>(user,HttpStatus.OK);
+		respEnt = new ResponseEntity<User>(user,HttpStatus.OK);
 		return respEnt;
 	}
 }
