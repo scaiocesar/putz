@@ -1,14 +1,13 @@
 package com.dc3.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.dc3.model.User;
 import com.dc3.service.UserService;
@@ -20,24 +19,23 @@ import com.dc3.service.exception.ServiceException;
  * @author Caio
  * 
  */
-@Controller
-@RequestMapping(value = "/userController")
+@RestController
+@RequestMapping(value = "/user")
 public class UserController extends GenericController {
 
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(method = RequestMethod.POST, produces = "application/json;charset=UTF-8", value = "/create")
-	public ResponseEntity<?> create(@RequestBody User user,
-			HttpServletRequest request) {
+	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json")
+	public ResponseEntity<?> create(@RequestBody User user) {
 		try {
 			userService.save(user);
-			return new ResponseEntity<String>("OK", HttpStatus.OK);
 		} catch (ServiceException e) {
-			return new ResponseEntity(getMessageSource().getMessage(
-					e.getMsgResource(), null, null, request.getLocale()),
-					HttpStatus.BAD_REQUEST);
+			return new ResponseEntity(getMessageSource().getMessage(e.getMsgResource(), null, null), HttpStatus.BAD_REQUEST);
 		}
+		
+		ResponseEntity<User> respEnt = new ResponseEntity<User>(user,HttpStatus.OK);
+		return respEnt;
 
 	}
 
