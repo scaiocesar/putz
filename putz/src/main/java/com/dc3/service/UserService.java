@@ -17,8 +17,7 @@ public class UserService extends GenericService {
 
 	public void save(User user) throws ServiceException {
 		User usr = userRepository.findTop1ByEmail(user.getEmail());
-		if (usr == null) {
-			user.setActive(true);
+		if (usr == null) {			
 			userRepository.save(user);
 		} else {
 			throw new ServiceException("Usuario já cadastrado",
@@ -26,7 +25,6 @@ public class UserService extends GenericService {
 		}
 	}
 
-	@Transactional(readOnly = true)
 	public User doLogin(User user) throws ServiceException {
 		User foundUser = userRepository.findTop1ByEmail(user.getEmail());
 		if (foundUser == null) {
@@ -41,5 +39,15 @@ public class UserService extends GenericService {
 			}
 		}
 
+	}
+	
+	public void retrievePassword(User user) throws ServiceException {
+		user = userRepository.findTop1ByEmail(user.getEmail());
+		if (user!=null) {			
+			// send email
+		} else {
+			throw new ServiceException("E-mail não encontrado",
+					"error.user.already_exists");
+		}
 	}
 }

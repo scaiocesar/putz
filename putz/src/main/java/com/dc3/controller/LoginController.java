@@ -30,4 +30,18 @@ public class LoginController extends GenericController {
 		ResponseEntity<User> respEnt = new ResponseEntity<User>(user,HttpStatus.OK);
 		return respEnt;	
 	}
+	
+	@RequestMapping(value = "retrievePassword",method = RequestMethod.GET, headers = "Accept=application/json")
+	public ResponseEntity<?> retrievePassword(User user) {
+		try {
+			userService.retrievePassword(user);
+		} catch (ServiceException e) {
+			return new ResponseEntity<String>(getMessageSource().getMessage(
+					e.getMsgResource(), null, null), HttpStatus.NOT_FOUND);
+		}		
+		ResponseEntity<?> respEnt = new ResponseEntity<>(HttpStatus.OK);
+		return respEnt;	
+	}
+	
+	
 }

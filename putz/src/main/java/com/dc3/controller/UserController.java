@@ -25,10 +25,9 @@ public class UserController extends GenericController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json")
+	@RequestMapping(value = "create", method = RequestMethod.POST, headers = "Accept=application/json")
 	public ResponseEntity<?> create(@RequestBody User user) {
 		ResponseEntity<User> respEnt = null;
-		
 		try {
 			userService.save(user);
 		} catch (ServiceException e) {

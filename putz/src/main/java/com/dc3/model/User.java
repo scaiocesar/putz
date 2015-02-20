@@ -14,7 +14,7 @@ public class User {
 	@GeneratedValue
 	@Column(name = "id_user")
 	private Integer idUser;
-	private Integer idState;
+	private String idState;
 	private String phone;
 	private String name;
 	private String password;
@@ -29,11 +29,11 @@ public class User {
 		this.idUser = idUser;
 	}
 
-	public Integer getIdState() {
+	public String getIdState() {
 		return idState;
 	}
 
-	public void setIdState(Integer idState) {
+	public void setIdState(String idState) {
 		this.idState = idState;
 	}
 
