@@ -39,7 +39,7 @@ public class LoginController extends GenericController {
 			return new ResponseEntity<String>(getMessageSource().getMessage(
 					e.getMsgResource(), null, null), HttpStatus.NOT_FOUND);
 		}		
-		ResponseEntity<?> respEnt = new ResponseEntity<>(HttpStatus.OK);
+		ResponseEntity<User> respEnt = new ResponseEntity<User>(user,HttpStatus.OK);
 		return respEnt;	
 	}
 	
