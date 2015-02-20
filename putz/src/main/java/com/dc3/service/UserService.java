@@ -41,10 +41,11 @@ public class UserService extends GenericService {
 
 	}
 	
-	public void retrievePassword(User user) throws ServiceException {
+	public User retrievePassword(User user) throws ServiceException {
 		user = userRepository.findTop1ByEmail(user.getEmail());
-		if (user!=null) {			
-			// send email
+		if (user!=null) {
+			//TODO send emal.
+			return user;
 		} else {
 			throw new ServiceException("E-mail não encontrado",
 					"error.user.already_exists");
