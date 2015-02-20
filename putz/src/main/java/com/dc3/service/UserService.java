@@ -31,7 +31,7 @@ public class UserService extends GenericService {
 			throw new ServiceException("Login não cadastrado",
 					"error.user.login_notfound");
 		} else {
-			if (!foundUser.getPassword().isEmpty() && foundUser.equals(user.getPassword())) {
+			if (!foundUser.equals(user.getPassword())) {
 				throw new ServiceException("Senha não confere",
 						"error.user.wrong_password");
 			} else {
